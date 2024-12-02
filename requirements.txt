@@ -1,0 +1,4 @@
+mediapipe
+cv2
+pydirectinput  
+numpy

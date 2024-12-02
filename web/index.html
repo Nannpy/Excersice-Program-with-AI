@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAI-ness</title>
+    
+    <!-- <link rel="stylesheet" href="index.css"> -->
+    <style>
+        body {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            padding-right: 20px;
+            overflow: hidden;
+            position: relative;
+            background-color: #000;
+        }
+        .slider {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+        .slides {
+            display: flex;
+            transition: transform 1s ease-in-out;
+            overflow: visible;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            opacity: 0.5;
+            transition: opacity 0.5s ease-in-out;
+            position: relative;
+        }
+        .slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .slide.active {
+            opacity: 1;
+        }
+        .description {
+            position: absolute;
+            left: calc(50vw - 600px);
+            top: 25%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 250px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .details {
+            position: absolute;
+            left: calc(50vw - 600px);
+            top: calc(30% + 100px);
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            max-width: 550px;
+            text-align: left;
+            font-size: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .extra-details {
+            position: absolute;
+            left: calc(50vw - 600px);
+            top: 60%;
+            bottom: 100px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 550px;
+            text-align: left;
+            font-size: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .navigation {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            display: flex;
+            transform: translateY(0);
+        }
+        .navigation button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+        .navigation button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 36px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff0000, #ff6600, #ffcc00);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            filter: blur(10px) grayscale(100%);
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">Fness</div>
+    <div class="slider">
+        <div class="slides">
+            <div class="slide active">
+                <a href ="https://rcastis.itch.io/slim-shooter"><img src="image1.jpg" alt="Image 1"></a>
+            </div>
+            <div class="slide">
+                <a href="https://rcastis.itch.io/game2?secret=sC5ymSo4MYQRiW7O6trwZEfFC8"><img src="image2.jpg" alt="Image 2"></a>
+            </div>
+            <div class="slide">
+                <a href="https://rcastis.itch.io/game3?secret=csjuVIi8b3aqUKjZb65M8pDjzG0"><img src="image3.jpg" alt="Image 3"></a>
+            </div>
+        </div>
+        <div class="navigation">
+            <button class="prev" onclick="moveSlide(-1)">❮</button>
+            <button class="next" onclick="moveSlide(1)">❯</button>
+        </div>
+    </div>
+    <div class="description">Slim Shooter</div>
+    <div class="details">Slim Shooter เป็นเกมสำหรับยิงก้อนไขมันที่เข้ามาในพุง มี 4 ทิศทางที่ก้อนไขมันจะเข้ามาทำร้าย โดยการยิงแต่ละครั้งกระสุนจะออกมา 3 นัด โดยต้องยิงก้อนไขมันทั้งหมด 20 wave</div>
+    <div class="extra-details">
+        <h2>ท่าในการเล่นเกม</h2>
+        <p>Slim Shooter - Description about Slim Shooter with more insights.</p>
+    </div>
+    <div class="background-overlay"></div>
+
+    <!-- <script src="index.js"> -->
+     
+    </script>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelector('.slides');
+        const slideElements = document.querySelectorAll('.slide');
+        const totalSlides = slideElements.length;
+        const descriptionElement = document.querySelector('.description');
+        const detailsElement = document.querySelector('.details');
+        const backgroundOverlay = document.querySelector('.background-overlay');
+        const extraDetailsElement = document.querySelector('.extra-details');
+
+        const descriptions = [
+            'Slim Shooter',
+            'Slim Shooter V2',
+            'Fat Blaster'
+        ];
+
+        const details = [
+            'Slim Shooter เป็นเกมสำหรับยิงก้อนไขมันที่เข้ามาในพุง มี 4 ทิศทางที่ก้อนไขมันจะเข้ามาทำร้าย โดยการยิงแต่ละครั้งกระสุนจะออกมา 3 นัด โดยต้องยิงก้อนไขมันทั้งหมด 20 wave',
+            'Slim ShooterV2 เป็นเกมสำหรับยิงก้อนไขมันที่เข้ามาในพุง มี 4 ทิศทางที่ก้อนไขมันจะเข้ามาทำร้าย โดยการยิงแต่ละครั้งกระสุนจะออกมา 3 นัด โดยต้องจัดการก้อนไขมันในเวลา 30 วินาที ซึ่ง V2 จะมีความยากมากกว่า V1 ',
+            'Fat Blaster เป็นเกมยิงเบอร์เกอร์ที่จะเข้ามาในปากของเรา โดยการยิงจะยิงกระสุนเป็นแนวตรง ซึ่งเบอร์เกอร์จะเข้ามา 2 เลน ซึ่งมีเวลาให้เลือก 30 วินาทีและ 60 วินาที โดยเรามีทั้งหมด 3 ชีวิต เมื่อโดนเบอร์เกอร์ตัวเล็กจะเสีย 1 ชีวิต เบอร์เกอร์ตัวใหญ่จะเสีย 2 ชีวิต.'
+        ];
+
+        const extraDetails = [
+            'ใช้ท่า squat ในการเล่นเกม ซึ่งท่า squat เป็นท่าออกกำลังกาย สามารถลดไขมันหน้าท้องได้',
+            'ใช้ท่า squat ในการเล่นเกม ซึ่งท่า squat เป็นท่าออกกำลังกาย สามารถลดไขมันหน้าท้องได้.',
+            'ใช้ท่า High knees ในการเล่นเกม ซึ่งท่า High knees เป็นท่าออกกำลังกาย สามารถลดไขมันหน้าท้องได้.'
+        ];
+
+        function updateSlideOpacity() {
+            slideElements.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+        }
+
+        function updateDescription() {
+            descriptionElement.textContent = descriptions[currentSlide];
+        }
+
+        function updateDetails() {
+            detailsElement.textContent = details[currentSlide];
+        }
+
+        function updateExtraDetails() {
+            extraDetailsElement.querySelector('p').textContent = extraDetails[currentSlide];
+        }
+
+        function updateBackground() {
+            const imgSrc = slideElements[currentSlide].querySelector('img').src;
+            backgroundOverlay.style.backgroundImage = `url(${imgSrc})`;
+        }
+
+        function moveSlide(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            updateSlideOpacity();
+            updateDescription();
+            updateDetails();
+            updateBackground();
+            updateExtraDetails();
+        }
+
+        updateSlideOpacity();
+        updateDescription();
+        updateDetails();
+        updateBackground();
+        updateExtraDetails();
+    </script>
+</body>
+</html>
